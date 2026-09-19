@@ -1,5 +1,5 @@
 # Multi-stage production Dockerfile for Next.js Standalone
-FROM node:20-alpine AS base
+FROM node:24-alpine AS base
 
 # Stage 1: Install dependencies
 FROM base AS deps
