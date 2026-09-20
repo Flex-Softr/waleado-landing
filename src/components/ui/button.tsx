@@ -19,7 +19,7 @@ const buttonVariants = cva(
           "bg-destructive/10 text-destructive hover:bg-destructive/20 focus-visible:border-destructive/40",
         link: "text-primary underline-offset-4 hover:underline",
         gradient:
-          "bg-gradient-to-r from-emerald-600 via-teal-600 to-emerald-500 text-white shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:-translate-y-0.5",
+          "bg-emerald-600 text-white shadow-md hover:bg-emerald-700 hover:-translate-y-0.5 dark:bg-emerald-600 dark:hover:bg-emerald-500",
       },
       size: {
         default: "h-10 gap-2 px-4 py-2",

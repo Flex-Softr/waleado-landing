@@ -168,16 +168,9 @@
   opacity: 0.15;
 }
 
-/* Text Gradients */
+/* Text Color */
 .text-gradient-emerald {
-  background: linear-gradient(
-    135deg,
-    oklch(0.66 0.19 150) 0%,
-    oklch(0.58 0.19 150) 50%,
-    oklch(0.62 0.21 245) 100%
-  );
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--primary);
 }
 
 /* Glassmorphism */

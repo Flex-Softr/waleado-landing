@@ -17,7 +17,7 @@ const solutions = [
     title: "E-Commerce & Retail",
     tagline: "Turn Abandoned Carts Into Instant Sales",
     icon: ShoppingBag,
-    color: "from-emerald-500 to-teal-500",
+    color: "bg-emerald-600",
     metrics: "+340% Recovery Rate",
     description:
       "Send automatic abandoned cart reminders with personalized discount codes, dispatch instant order and shipping updates, and launch high-converting flash sale broadcasts.",
@@ -33,7 +33,7 @@ const solutions = [
     title: "Real Estate & Agencies",
     tagline: "Qualify High-Ticket Inquiries in Seconds",
     icon: Building,
-    color: "from-blue-500 to-cyan-500",
+    color: "bg-blue-600",
     metrics: "2.4x Faster Closings",
     description:
       "When buyers call or message about a property listing, instantly trigger PDF brochures, schedule site visit viewings, and auto-reply to missed buyer calls 24/7.",
@@ -49,7 +49,7 @@ const solutions = [
     title: "Marketing Agencies",
     tagline: "Deliver 10x ROI for Multiple Client Brands",
     icon: Briefcase,
-    color: "from-purple-500 to-indigo-500",
+    color: "bg-purple-600",
     metrics: "Multi-Tenant Ready",
     description:
       "Connect separate client WhatsApp numbers into dedicated workspace accounts. Execute massive client campaigns with full anti-ban protection and detailed exportable metrics.",
@@ -65,7 +65,7 @@ const solutions = [
     title: "Customer Support & SaaS",
     tagline: "Resolve 70% of Inquiries Without Human Staff",
     icon: Headphones,
-    color: "from-amber-500 to-orange-500",
+    color: "bg-amber-600",
     metrics: "< 2s First Response",
     description:
       "Deploy interactive keyword-driven chatbots to answer repetitive questions, handle billing inquiries, and seamlessly escalate complex cases to live human agents in the unified inbox.",
@@ -109,7 +109,7 @@ export function SolutionsSection() {
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <div
-                      className={`w-12 h-12 rounded-2xl bg-gradient-to-tr ${sol.color} text-white flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform`}
+                      className={`w-12 h-12 rounded-2xl ${sol.color} text-white flex items-center justify-center shadow-lg group-hover:scale-105 transition-transform`}
                     >
                       <Icon className="w-6 h-6" />
                     </div>

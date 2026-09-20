@@ -190,7 +190,7 @@ export function Navbar() {
             </Link>
 
             <Link href="http://localhost:3000/register">
-              <Button variant="gradient" size="sm" className="font-bold">
+              <Button variant="default" size="sm" className="font-bold">
                 <span>Start Free Trial</span>
                 <ArrowRight className="w-4 h-4 ml-1" />
               </Button>
@@ -243,7 +243,7 @@ export function Navbar() {
               onClick={() => setIsOpen(false)}
               className="w-full"
             >
-              <Button variant="gradient" className="w-full font-bold">
+              <Button variant="default" className="w-full font-bold">
                 Start Free 14-Day Trial
               </Button>
             </Link>
