@@ -9,65 +9,67 @@ import { Check, Sparkles, ArrowRight, ShieldCheck, CreditCard } from "lucide-rea
 
 export function PricingSection() {
   const [annual, setAnnual] = React.useState(true);
+  const [currency, setCurrency] = React.useState<"USD" | "BDT">("USD");
 
   const plans = [
     {
-      name: "Starter",
-      badge: "For Solo Founders & Shops",
-      priceMonthly: 29,
-      priceAnnual: 23,
-      desc: "Perfect for small businesses getting started with WhatsApp marketing & automated customer chats.",
+      id: "free",
+      name: "3-Day Free Trial",
+      badge: "Risk-Free Trial",
+      priceMonthlyUsd: 0,
+      priceAnnualUsd: 0,
+      priceMonthlyBdt: 0,
+      priceAnnualBdt: 0,
+      desc: "Full access to Waleado features for 3 days on your account.",
       popular: false,
       features: [
-        "1 Connected WhatsApp Device",
-        "5,000 Messages / month",
-        "Visual Node Chatbot Builder",
-        "Group Contact Grabber",
-        "Standard Anti-Ban Safety Delays",
-        "1 Team Member Seat",
-        "Community & Email Support",
+        "1 WhatsApp session",
+        "Full messaging capabilities",
+        "Auto-reply, chatbot & templates",
+        "One-time trial per account",
       ],
-      cta: "Start 14-Day Free Trial",
-      href: "http://localhost:3000/register?plan=starter",
+      cta: "Start 3-Day Free Trial",
+      href: "http://localhost:3000/register?plan=free",
     },
     {
-      name: "Professional",
+      id: "pro",
+      name: "Pro",
       badge: "Most Popular • Growth Teams",
-      priceMonthly: 79,
-      priceAnnual: 63,
-      desc: "Everything you need to run high-volume broadcasts, automated call follow-ups, and multi-SIM campaigns.",
+      priceMonthlyUsd: 29,
+      priceAnnualUsd: 23,
+      priceMonthlyBdt: 3490,
+      priceAnnualBdt: 2790,
+      desc: "For growing teams and higher messaging volume.",
       popular: true,
       features: [
-        "5 Connected WhatsApp Devices",
-        "50,000 Messages / month",
-        "Dynamic AI Spintax Rewriter (OpenAI & Groq)",
-        "Automated Missed Call & Video Call Responder",
-        "Multi-SIM Round-Robin & Failover Rotation",
-        "Unified Team Inbox (5 Seats Included)",
-        "Advanced Anti-Ban Randomized Jitter Engine",
-        "Priority 24/7 WhatsApp & Email Support",
+        "5 WhatsApp sessions",
+        "10,000 messages / month",
+        "Bulk campaigns & chatbots",
+        "Call responder & group tools",
+        "Email support",
       ],
-      cta: "Start 14-Day Free Trial",
+      cta: "Get Started with Pro",
       href: "http://localhost:3000/register?plan=pro",
     },
     {
-      name: "Enterprise",
+      id: "business",
+      name: "Business",
       badge: "Agencies & Scale-ups",
-      priceMonthly: 199,
-      priceAnnual: 159,
-      desc: "Unlimited scale for marketing agencies, high-volume e-commerce brands, and enterprise teams.",
+      priceMonthlyUsd: 79,
+      priceAnnualUsd: 63,
+      priceMonthlyBdt: 9490,
+      priceAnnualBdt: 7590,
+      desc: "Scale with priority support, higher limits, and custom onboarding.",
       popular: false,
       features: [
-        "Unlimited Connected WhatsApp Devices",
-        "Unlimited Monthly Messages",
-        "Custom Dedicated IP & Proxy Routing",
-        "Advanced Custom AI Knowledge Base Agents",
-        "Unlimited Team Member Seats",
-        "Custom Webhook & CRM API Integrations",
-        "Dedicated Account Manager & 99.9% SLA",
+        "Unlimited sessions*",
+        "50,000 messages / month",
+        "Everything in Pro",
+        "Dedicated success manager",
+        "SLA & onboarding call",
       ],
-      cta: "Contact Enterprise Sales",
-      href: "/contact",
+      cta: "Get Started with Business",
+      href: "http://localhost:3000/register?plan=business",
     },
   ];
 
@@ -88,42 +90,75 @@ export function PricingSection() {
           </h2>
 
           <p className="mt-4 text-base sm:text-lg text-muted-foreground">
-            All plans include full access to the anti-ban suite and 14-day risk-free trial. No
-            hidden per-conversation charges.
+            All plans include full access to the anti-ban suite and 14-day risk-free trial. Pay in USD ($) or Bangladeshi Taka (৳).
           </p>
 
-          {/* Billing Interval Switcher */}
-          <div className="mt-8 inline-flex items-center p-1.5 rounded-2xl bg-muted border border-border">
-            <button
-              onClick={() => setAnnual(false)}
-              className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-                !annual
-                  ? "bg-background text-foreground shadow-sm"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              Monthly Billing
-            </button>
-            <button
-              onClick={() => setAnnual(true)}
-              className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-                annual
-                  ? "bg-primary text-primary-foreground shadow-md shadow-primary/30"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              <span>Annual Billing</span>
-              <span className="px-1.5 py-0.5 rounded bg-primary-foreground/20 text-[10px] uppercase font-black">
-                Save 20%
-              </span>
-            </button>
+          {/* Billing Interval & Currency Switchers */}
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            <div className="inline-flex items-center p-1.5 rounded-2xl bg-muted border border-border">
+              <button
+                onClick={() => setAnnual(false)}
+                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                  !annual
+                    ? "bg-background text-foreground shadow-sm"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                Monthly Billing
+              </button>
+              <button
+                onClick={() => setAnnual(true)}
+                className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
+                  annual
+                    ? "bg-primary text-primary-foreground shadow-md shadow-primary/30"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                <span>Annual Billing</span>
+                <span className="px-1.5 py-0.5 rounded bg-primary-foreground/20 text-[10px] uppercase font-black">
+                  Save 20%
+                </span>
+              </button>
+            </div>
+
+            <div className="inline-flex items-center p-1.5 rounded-2xl bg-muted border border-border">
+              <button
+                onClick={() => setCurrency("USD")}
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  currency === "USD"
+                    ? "bg-primary text-primary-foreground shadow-sm"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                🌐 $ USD
+              </button>
+              <button
+                onClick={() => setCurrency("BDT")}
+                className={`flex items-center gap-1 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
+                  currency === "BDT"
+                    ? "bg-primary text-primary-foreground shadow-sm"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                <span>🇧🇩 ৳ BDT</span>
+                <span className="text-[10px] opacity-80">(bKash/Nagad)</span>
+              </button>
+            </div>
           </div>
         </div>
 
         {/* Pricing Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
           {plans.map((plan, i) => {
-            const price = annual ? plan.priceAnnual : plan.priceMonthly;
+            const price =
+              currency === "BDT"
+                ? annual
+                  ? `৳${plan.priceAnnualBdt.toLocaleString()}`
+                  : `৳${plan.priceMonthlyBdt.toLocaleString()}`
+                : annual
+                ? `$${plan.priceAnnualUsd}`
+                : `$${plan.priceMonthlyUsd}`;
+
             return (
               <Card
                 key={i}
@@ -157,7 +192,7 @@ export function PricingSection() {
                   {/* Price */}
                   <div className="mt-6 flex items-baseline gap-1">
                     <span className="text-4xl sm:text-5xl font-black text-foreground">
-                      ${price}
+                      {price}
                     </span>
                     <span className="text-sm font-semibold text-muted-foreground">
                       / month{" "}
@@ -204,17 +239,20 @@ export function PricingSection() {
         </div>
 
         {/* Payment Gateways Bar */}
-        <div className="mt-16 text-center text-xs text-muted-foreground space-y-2">
-          <div className="flex items-center justify-center gap-2 font-medium">
+        <div className="mt-16 text-center text-xs text-muted-foreground space-y-3">
+          <div className="flex flex-wrap items-center justify-center gap-2 font-medium">
             <CreditCard className="w-4 h-4 text-primary" />
-            <span>
-              Supported payment methods: Credit Cards (Visa / Mastercard / Amex), Stripe,
-              SSLCommerz, bKash, Nagad, Rocket & Bank Transfers
-            </span>
+            <span>Supported Payment Gateways & Local Mobile Banking:</span>
           </div>
-          <div className="text-[11px] text-muted-foreground/80">
-            🔒 All transactions are secured with 256-bit SSL encryption. Cancel anytime with 1
-            click.
+          <div className="flex flex-wrap items-center justify-center gap-1.5">
+            <Badge variant="outline" className="px-2.5 py-1 text-xs font-bold border-pink-500/40 bg-pink-500/10 text-pink-600 dark:text-pink-300">bKash</Badge>
+            <Badge variant="outline" className="px-2.5 py-1 text-xs font-bold border-orange-500/40 bg-orange-500/10 text-orange-600 dark:text-orange-300">Nagad</Badge>
+            <Badge variant="outline" className="px-2.5 py-1 text-xs font-bold border-purple-500/40 bg-purple-500/10 text-purple-600 dark:text-purple-300">Rocket</Badge>
+            <Badge variant="outline" className="px-2.5 py-1 text-xs font-bold border-emerald-500/40 bg-emerald-500/10 text-emerald-600 dark:text-emerald-300">SSLCommerz</Badge>
+            <Badge variant="outline" className="px-2.5 py-1 text-xs font-bold border-blue-500/40 bg-blue-500/10 text-blue-600 dark:text-blue-300">Stripe (Visa / Mastercard)</Badge>
+          </div>
+          <div className="text-[11px] text-muted-foreground/80 pt-1">
+            🔒 All transactions are secured with SSL encryption. Instant payment confirmation & automated plan upgrades.
           </div>
         </div>
       </div>
