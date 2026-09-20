@@ -183,13 +183,13 @@ export function Navbar() {
           <div className="hidden lg:flex items-center gap-3">
             <ThemeToggle />
 
-            <Link href="https://dash.waleado.com/login">
+            <Link href="https://dash.waleado.app/login">
               <Button variant="ghost" size="sm" className="font-semibold">
                 Sign In
               </Button>
             </Link>
 
-            <Link href="https://dash.waleado.com/register">
+            <Link href="https://dash.waleado.app/register">
               <Button variant="default" size="sm" className="font-bold">
                 <span>Start Free Trial</span>
                 <ArrowRight className="w-4 h-4 ml-1" />
@@ -230,7 +230,7 @@ export function Navbar() {
 
           <div className="pt-4 border-t border-border/80 flex flex-col gap-3">
             <Link
-              href="https://dash.waleado.com/login"
+              href="https://dash.waleado.app/login"
               onClick={() => setIsOpen(false)}
               className="w-full"
             >
@@ -239,7 +239,7 @@ export function Navbar() {
               </Button>
             </Link>
             <Link
-              href="https://dash.waleado.com/register"
+              href="https://dash.waleado.app/register"
               onClick={() => setIsOpen(false)}
               className="w-full"
             >
