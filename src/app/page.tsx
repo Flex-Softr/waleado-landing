@@ -3,7 +3,6 @@ import { HeroSection } from "@/components/hero-section";
 import { SocialProof } from "@/components/social-proof";
 import { FeaturesSection } from "@/components/features-section";
 import { AntiBanSection } from "@/components/anti-ban-section";
-import { RoiCalculator } from "@/components/roi-calculator";
 import { SolutionsSection } from "@/components/solutions-section";
 import { HowItWorks } from "@/components/how-it-works";
 import { ComparisonSection } from "@/components/comparison-section";
@@ -22,7 +21,6 @@ export default function HomePage() {
         <SocialProof />
         <FeaturesSection />
         <AntiBanSection />
-        <RoiCalculator />
         <SolutionsSection />
         <HowItWorks />
         <ComparisonSection />

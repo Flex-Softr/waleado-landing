@@ -1,6 +1,5 @@
 import { Navbar } from "@/components/navbar";
 import { SolutionsSection } from "@/components/solutions-section";
-import { RoiCalculator } from "@/components/roi-calculator";
 import { TestimonialsSection } from "@/components/testimonials-section";
 import { CtaSection } from "@/components/cta-section";
 import { Footer } from "@/components/footer";
@@ -17,7 +16,6 @@ export default function SolutionsPage() {
       <Navbar />
       <main className="flex-1 pt-24">
         <SolutionsSection />
-        <RoiCalculator />
         <TestimonialsSection />
         <CtaSection />
       </main>

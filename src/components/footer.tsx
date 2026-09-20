@@ -20,7 +20,6 @@ const footerNavigation = {
     { name: "Real Estate & Agencies", href: "/solutions#realestate" },
     { name: "Marketing Agencies", href: "/solutions#agencies" },
     { name: "Customer Support Desks", href: "/solutions#support" },
-    { name: "ROI Calculator", href: "/#roi-calculator" },
   ],
   resources: [
     { name: "Pricing & Plans", href: "/pricing" },
@@ -45,7 +44,7 @@ export function Footer() {
           {/* Column 1: Brand & Bio */}
           <div className="lg:col-span-2 space-y-4">
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-600 to-teal-400 p-[1.5px] shadow-md shadow-emerald-500/20 group-hover:scale-105 transition-transform duration-200">
+              <div className="relative w-9 h-9 rounded-xl bg-primary p-[1.5px] shadow-md shadow-primary/20 group-hover:scale-105 transition-transform duration-200">
                 <div className="w-full h-full bg-background rounded-[10px] flex items-center justify-center overflow-hidden">
                   <Image
                     src="/icon.png"
@@ -57,7 +56,7 @@ export function Footer() {
                 </div>
               </div>
               <div className="flex flex-col">
-                <span className="text-2xl font-black tracking-tight bg-gradient-to-r from-emerald-500 via-teal-400 to-cyan-500 bg-clip-text text-transparent">
+                <span className="text-2xl font-black tracking-tight text-primary">
                   Waleado
                 </span>
                 <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold -mt-1">
