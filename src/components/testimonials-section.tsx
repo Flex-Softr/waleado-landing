@@ -61,6 +61,25 @@ const testimonials = [
 ];
 
 export function TestimonialsSection() {
+  const [currentIndex, setCurrentIndex] = React.useState(0);
+  const [isPaused, setIsPaused] = React.useState(false);
+
+  React.useEffect(() => {
+    if (isPaused) return;
+    const interval = setInterval(() => {
+      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [isPaused]);
+
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
   return (
     <section className="py-20 md:py-28 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -78,44 +97,94 @@ export function TestimonialsSection() {
           </p>
         </div>
 
-        {/* Testimonials Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {testimonials.map((t, i) => (
-            <div
-              key={i}
-              className="p-8 rounded-3xl border border-border/80 bg-card/80 dark:bg-card/50 backdrop-blur-xl hover:border-emerald-500/40 transition-all duration-300 flex flex-col justify-between group"
-            >
+        {/* Testimonials Carousel Container */}
+        <div
+          className="relative max-w-4xl mx-auto"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onFocus={() => setIsPaused(true)}
+          onBlur={() => setIsPaused(false)}
+        >
+          <div className="overflow-hidden rounded-3xl border border-border/80 bg-card/80 dark:bg-card/50 backdrop-blur-xl p-8 sm:p-12 shadow-2xl relative">
+            <Quote className="w-12 h-12 text-emerald-500/20 absolute top-6 right-6 pointer-events-none" />
+            
+            <div className="min-h-[220px] flex flex-col justify-between">
               <div>
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex text-amber-400">
-                    {[...Array(t.stars)].map((_, s) => (
-                      <Star key={s} className="w-4 h-4 fill-current" />
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex text-amber-400 gap-1">
+                    {[...Array(testimonials[currentIndex].stars)].map((_, s) => (
+                      <Star key={s} className="w-5 h-5 fill-current" />
                     ))}
                   </div>
-                  <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-500">
-                    {t.metric}
+                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-500/15 text-emerald-500 border border-emerald-500/30">
+                    {testimonials[currentIndex].metric}
                   </span>
                 </div>
 
-                <Quote className="w-8 h-8 text-muted-foreground/30 mb-2" />
-                <p className="text-sm text-foreground/90 italic leading-relaxed">
-                  &ldquo;{t.quote}&rdquo;
+                <p className="text-lg sm:text-xl font-medium text-foreground leading-relaxed italic">
+                  &ldquo;{testimonials[currentIndex].quote}&rdquo;
                 </p>
               </div>
 
-              <div className="mt-6 pt-6 border-t border-border/60 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-400 text-white flex items-center justify-center font-bold text-sm">
-                  {t.author.charAt(0)}
-                </div>
+              <div className="mt-8 pt-6 border-t border-border/60 flex items-center justify-between">
                 <div>
-                  <div className="text-sm font-bold text-foreground">{t.author}</div>
-                  <div className="text-xs text-muted-foreground">
-                    {t.role} • {t.company}
-                  </div>
+                  <h3 className="font-bold text-base text-foreground flex items-center gap-2">
+                    {testimonials[currentIndex].author}
+                    <CheckCircle2 className="w-4 h-4 text-emerald-500 inline" />
+                  </h3>
+                  <p className="text-xs text-muted-foreground">
+                    {testimonials[currentIndex].role} — <span className="text-foreground/80 font-medium">{testimonials[currentIndex].company}</span>
+                  </p>
+                </div>
+                <div className="text-xs font-mono text-muted-foreground">
+                  {currentIndex + 1} / {testimonials.length}
                 </div>
               </div>
             </div>
-          ))}
+          </div>
+
+          {/* Carousel Navigation Controls */}
+          <div className="flex items-center justify-between mt-6 px-2">
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handlePrev}
+                aria-label="Previous testimonial slide"
+                className="p-2.5 rounded-full border border-border bg-card hover:bg-muted text-foreground transition-colors cursor-pointer"
+              >
+                ←
+              </button>
+              <button
+                onClick={handleNext}
+                aria-label="Next testimonial slide"
+                className="p-2.5 rounded-full border border-border bg-card hover:bg-muted text-foreground transition-colors cursor-pointer"
+              >
+                →
+              </button>
+              <button
+                onClick={() => setIsPaused(!isPaused)}
+                className="ml-2 text-xs font-medium text-muted-foreground hover:text-foreground cursor-pointer"
+                aria-label={isPaused ? "Resume slideshow" : "Pause slideshow"}
+              >
+                {isPaused ? "▶ Resume" : "❚❚ Pause"}
+              </button>
+            </div>
+
+            {/* Pagination Indicators */}
+            <div className="flex items-center gap-1.5" role="tablist" aria-label="Testimonial slides">
+              {testimonials.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentIndex(idx)}
+                  role="tab"
+                  aria-selected={currentIndex === idx}
+                  aria-label={`Go to slide ${idx + 1}`}
+                  className={`h-2 rounded-full transition-all cursor-pointer ${
+                    currentIndex === idx ? "w-8 bg-emerald-500" : "w-2 bg-muted-foreground/30 hover:bg-muted-foreground/60"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>
