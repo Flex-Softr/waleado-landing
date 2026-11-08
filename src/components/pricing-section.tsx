@@ -1,77 +1,11 @@
-"use client";
-
-import * as React from "react";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { Sparkles, CreditCard } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Card } from "@/components/ui/card";
-import { Check, Sparkles, ArrowRight, ShieldCheck, CreditCard } from "lucide-react";
+import { PricingCards } from "@/components/pricing-cards";
+import { APP_URL, getPricing } from "@/lib/pricing";
 
-export function PricingSection() {
-  const [annual, setAnnual] = React.useState(true);
-  const [currency, setCurrency] = React.useState<"USD" | "BDT">("USD");
-
-  const plans = [
-    {
-      id: "free",
-      name: "3-Day Free Trial",
-      badge: "Risk-Free Trial",
-      priceMonthlyUsd: 0,
-      priceAnnualUsd: 0,
-      priceMonthlyBdt: 0,
-      priceAnnualBdt: 0,
-      desc: "Full access to Waleado features for 3 days on your account.",
-      popular: false,
-      features: [
-        "1 WhatsApp session",
-        "Full messaging capabilities",
-        "Auto-reply, chatbot & templates",
-        "One-time trial per account",
-      ],
-      cta: "Start 3-Day Free Trial",
-      href: "http://localhost:3000/register?plan=free",
-    },
-    {
-      id: "pro",
-      name: "Pro",
-      badge: "Most Popular • Growth Teams",
-      priceMonthlyUsd: 29,
-      priceAnnualUsd: 23,
-      priceMonthlyBdt: 3490,
-      priceAnnualBdt: 2790,
-      desc: "For growing teams and higher messaging volume.",
-      popular: true,
-      features: [
-        "5 WhatsApp sessions",
-        "10,000 messages / month",
-        "Bulk campaigns & chatbots",
-        "Call responder & group tools",
-        "Email support",
-      ],
-      cta: "Get Started with Pro",
-      href: "http://localhost:3000/register?plan=pro",
-    },
-    {
-      id: "business",
-      name: "Business",
-      badge: "Agencies & Scale-ups",
-      priceMonthlyUsd: 79,
-      priceAnnualUsd: 63,
-      priceMonthlyBdt: 9490,
-      priceAnnualBdt: 7590,
-      desc: "Scale with priority support, higher limits, and custom onboarding.",
-      popular: false,
-      features: [
-        "Unlimited sessions*",
-        "50,000 messages / month",
-        "Everything in Pro",
-        "Dedicated success manager",
-        "SLA & onboarding call",
-      ],
-      cta: "Get Started with Business",
-      href: "http://localhost:3000/register?plan=business",
-    },
-  ];
+export async function PricingSection() {
+  const pricing = await getPricing();
+  const trialPlan = pricing?.plans.find((p) => p.id === pricing.trialPlanId)?.name ?? "Pro";
 
   return (
     <section id="pricing" className="py-20 md:py-28 relative bg-muted/20 border-t border-border/80">
@@ -80,179 +14,73 @@ export function PricingSection() {
           <div className="flex justify-center mb-4">
             <Badge variant="gradient" className="gap-1.5 px-3.5 py-1 text-xs">
               <Sparkles className="w-3.5 h-3.5" />
-              <span>Simple, Transparent Pricing</span>
+              <span>Start at zero cost — free forever</span>
             </Badge>
           </div>
 
           <h2 className="text-3xl sm:text-5xl font-black text-foreground tracking-tight">
-            Predictable Plans for{" "}
-            <span className="text-gradient-emerald">Every Stage of Growth</span>
+            Free forever. <span className="text-gradient-emerald">Upgrade when you grow.</span>
           </h2>
 
           <p className="mt-4 text-base sm:text-lg text-muted-foreground">
-            All plans include full access to the anti-ban suite and 14-day risk-free trial. Pay in USD ($) or Bangladeshi Taka (৳).
+            {pricing && pricing.trialDays > 0
+              ? `Every new account gets ${pricing.trialDays} days of ${trialPlan} free, then keeps the Free plan for life. `
+              : "Start on the Free plan and keep it for life. "}
+            No card needed. Pay in Taka with bKash, Nagad, Rocket or card.
           </p>
+        </div>
 
-          {/* Billing Interval & Currency Switchers */}
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            <div className="inline-flex items-center p-1.5 rounded-2xl bg-muted border border-border">
-              <button
-                onClick={() => setAnnual(false)}
-                className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-                  !annual
-                    ? "bg-background text-foreground shadow-sm"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                Monthly Billing
-              </button>
-              <button
-                onClick={() => setAnnual(true)}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-                  annual
-                    ? "bg-primary text-primary-foreground shadow-md shadow-primary/30"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                <span>Annual Billing</span>
-                <span className="px-1.5 py-0.5 rounded bg-primary-foreground/20 text-[10px] uppercase font-black">
-                  Save 20%
-                </span>
-              </button>
-            </div>
-
-            <div className="inline-flex items-center p-1.5 rounded-2xl bg-muted border border-border">
-              <button
-                onClick={() => setCurrency("USD")}
-                className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                  currency === "USD"
-                    ? "bg-primary text-primary-foreground shadow-sm"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                🌐 $ USD
-              </button>
-              <button
-                onClick={() => setCurrency("BDT")}
-                className={`flex items-center gap-1 px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
-                  currency === "BDT"
-                    ? "bg-primary text-primary-foreground shadow-sm"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                <span>🇧🇩 ৳ BDT</span>
-                <span className="text-[10px] opacity-80">(bKash/Nagad)</span>
-              </button>
-            </div>
+        {pricing ? (
+          <PricingCards pricing={pricing} appUrl={APP_URL} />
+        ) : (
+          <div className="text-center text-sm text-muted-foreground">
+            Pricing is loading — see all plans in your{" "}
+            <a className="text-primary underline" href={`${APP_URL}/register`}>
+              free dashboard
+            </a>
+            .
           </div>
-        </div>
+        )}
 
-        {/* Pricing Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
-          {plans.map((plan, i) => {
-            const price =
-              currency === "BDT"
-                ? annual
-                  ? `৳${plan.priceAnnualBdt.toLocaleString()}`
-                  : `৳${plan.priceMonthlyBdt.toLocaleString()}`
-                : annual
-                ? `$${plan.priceAnnualUsd}`
-                : `$${plan.priceMonthlyUsd}`;
-
-            return (
-              <Card
-                key={i}
-                className={`p-8 flex flex-col justify-between transition-all duration-300 relative ${
-                  plan.popular
-                    ? "border-2 border-primary bg-card/95 shadow-2xl shadow-primary/15 lg:-translate-y-2"
-                    : "border-border/80 bg-card/70 backdrop-blur-xl hover:border-primary/40 hover:shadow-lg"
-                }`}
-              >
-                {plan.popular && (
-                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
-                    <Badge
-                      variant="gradient"
-                      className="px-4 py-1 text-xs font-black uppercase tracking-widest bg-primary text-primary-foreground border-none shadow-md"
-                    >
-                      Recommended Choice
-                    </Badge>
-                  </div>
-                )}
-
-                <div>
-                  <div className="flex justify-between items-start">
-                    <div>
-                      <h3 className="text-2xl font-black text-foreground">{plan.name}</h3>
-                      <p className="text-xs font-semibold text-primary mt-0.5">{plan.badge}</p>
-                    </div>
-                  </div>
-
-                  <p className="text-xs text-muted-foreground mt-3 leading-relaxed">{plan.desc}</p>
-
-                  {/* Price */}
-                  <div className="mt-6 flex items-baseline gap-1">
-                    <span className="text-4xl sm:text-5xl font-black text-foreground">
-                      {price}
-                    </span>
-                    <span className="text-sm font-semibold text-muted-foreground">
-                      / month{" "}
-                      {annual && (
-                        <span className="text-xs block text-primary font-medium">
-                          (billed annually)
-                        </span>
-                      )}
-                    </span>
-                  </div>
-
-                  {/* Feature checklist */}
-                  <div className="mt-8 pt-6 border-t border-border/60 space-y-3">
-                    <div className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
-                      Included with {plan.name}:
-                    </div>
-                    {plan.features.map((feat, idx) => (
-                      <div
-                        key={idx}
-                        className="flex items-start gap-2.5 text-xs text-foreground/90 font-medium"
-                      >
-                        <Check className="w-4 h-4 text-primary shrink-0 mt-0.5" />
-                        <span>{feat}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* CTA Button */}
-                <div className="mt-8 pt-4">
-                  <Link href={plan.href} className="w-full block">
-                    <Button
-                      variant={plan.popular ? "gradient" : "outline"}
-                      className="w-full font-bold h-12"
-                    >
-                      <span>{plan.cta}</span>
-                      <ArrowRight className="w-4 h-4 ml-1" />
-                    </Button>
-                  </Link>
-                </div>
-              </Card>
-            );
-          })}
-        </div>
-
-        {/* Payment Gateways Bar */}
         <div className="mt-16 text-center text-xs text-muted-foreground space-y-3">
           <div className="flex flex-wrap items-center justify-center gap-2 font-medium">
             <CreditCard className="w-4 h-4 text-primary" />
-            <span>Supported Payment Gateways & Local Mobile Banking:</span>
+            <span>Supported payment methods:</span>
           </div>
           <div className="flex flex-wrap items-center justify-center gap-1.5">
-            <Badge variant="outline" className="px-2.5 py-1 text-xs font-bold border-pink-500/40 bg-pink-500/10 text-pink-600 dark:text-pink-300">bKash</Badge>
-            <Badge variant="outline" className="px-2.5 py-1 text-xs font-bold border-orange-500/40 bg-orange-500/10 text-orange-600 dark:text-orange-300">Nagad</Badge>
-            <Badge variant="outline" className="px-2.5 py-1 text-xs font-bold border-purple-500/40 bg-purple-500/10 text-purple-600 dark:text-purple-300">Rocket</Badge>
-            <Badge variant="outline" className="px-2.5 py-1 text-xs font-bold border-emerald-500/40 bg-emerald-500/10 text-emerald-600 dark:text-emerald-300">SSLCommerz</Badge>
-            <Badge variant="outline" className="px-2.5 py-1 text-xs font-bold border-blue-500/40 bg-blue-500/10 text-blue-600 dark:text-blue-300">Stripe (Visa / Mastercard)</Badge>
+            <Badge
+              variant="outline"
+              className="px-2.5 py-1 text-xs font-bold border-pink-500/40 bg-pink-500/10 text-pink-600 dark:text-pink-300"
+            >
+              bKash
+            </Badge>
+            <Badge
+              variant="outline"
+              className="px-2.5 py-1 text-xs font-bold border-orange-500/40 bg-orange-500/10 text-orange-600 dark:text-orange-300"
+            >
+              Nagad
+            </Badge>
+            <Badge
+              variant="outline"
+              className="px-2.5 py-1 text-xs font-bold border-purple-500/40 bg-purple-500/10 text-purple-600 dark:text-purple-300"
+            >
+              Rocket
+            </Badge>
+            <Badge
+              variant="outline"
+              className="px-2.5 py-1 text-xs font-bold border-emerald-500/40 bg-emerald-500/10 text-emerald-600 dark:text-emerald-300"
+            >
+              SSLCommerz
+            </Badge>
+            <Badge
+              variant="outline"
+              className="px-2.5 py-1 text-xs font-bold border-blue-500/40 bg-blue-500/10 text-blue-600 dark:text-blue-300"
+            >
+              Visa / Mastercard
+            </Badge>
           </div>
           <div className="text-[11px] text-muted-foreground/80 pt-1">
-            🔒 All transactions are secured with SSL encryption. Instant payment confirmation & automated plan upgrades.
+            🔒 Secure checkout. Your plan activates instantly after payment.
           </div>
         </div>
       </div>
