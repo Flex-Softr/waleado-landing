@@ -1,31 +1,31 @@
+import Image from "next/image";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
-export function LogoMark({ className = "size-8" }: { className?: string }) {
+/** Brand logo: the dark-text version on light backgrounds, the white-text version in dark mode. */
+export function Logo({ className }: { className?: string }) {
   return (
-    <span
-      className={`${className} flex items-center justify-center rounded-[9px] bg-primary text-primary-foreground`}
+    <Link
+      href="/"
+      aria-label="Waleado home"
+      className={cn("flex shrink-0 items-center", className)}
     >
-      <svg
-        viewBox="0 0 24 24"
-        className="size-[55%]"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
-      >
-        <path d="M21 11.5a8.4 8.4 0 0 1-12.6 7.3L3 21l2.2-5.2A8.5 8.5 0 1 1 21 11.5z" />
-      </svg>
-    </span>
-  );
-}
-
-export function Logo() {
-  return (
-    <Link href="/" className="flex items-center gap-2.5 text-foreground" aria-label="Waleado home">
-      <LogoMark />
-      <span className="font-display text-xl font-extrabold tracking-tight">Waleado</span>
+      <Image
+        src="/brand/waleado-logo-light.webp"
+        alt="Waleado"
+        width={256}
+        height={85}
+        priority
+        className="h-10 w-auto dark:hidden"
+      />
+      <Image
+        src="/brand/waleado-logo-dark.webp"
+        alt="Waleado"
+        width={256}
+        height={85}
+        priority
+        className="hidden h-10 w-auto dark:block"
+      />
     </Link>
   );
 }

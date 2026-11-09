@@ -45,7 +45,7 @@ export function SiteFooter() {
       <div className="container-page py-14">
         <div className="flex flex-wrap justify-between gap-12">
           <div className="flex max-w-xs flex-col gap-3">
-            <Logo />
+            <Logo className="self-start" />
             <p className="text-sm leading-relaxed text-muted-foreground">{SITE.tagline}</p>
             <a
               href={`mailto:${SITE.email}`}
