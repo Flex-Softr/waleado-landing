@@ -1,75 +1,72 @@
-import { Navbar } from "@/components/navbar";
-import { Footer } from "@/components/footer";
+import { LegalPage } from "@/components/marketing/legal-page";
+import { SITE } from "@/content/site";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = {
-  title: "Terms of Service — Waleado WhatsApp Automation",
-  description: "Terms of service and acceptable use policies for Waleado platform.",
-};
+export const metadata = pageMetadata({
+  title: "Terms of service",
+  description:
+    "The terms that apply when you use Waleado, the WhatsApp marketing and automation platform.",
+  path: "/terms",
+});
 
 export default function TermsPage() {
   return (
-    <div className="flex min-h-screen flex-col bg-background text-foreground">
-      <Navbar />
-      <main className="flex-1 pt-32 pb-20">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-3xl sm:text-4xl font-black text-foreground mb-6">Terms of Service</h1>
-          <p className="text-xs text-muted-foreground mb-8">Last Updated: September 2026</p>
-
-          <div className="prose prose-slate dark:prose-invert max-w-none text-sm leading-relaxed space-y-6 text-muted-foreground">
-            <section className="space-y-2">
-              <h2 className="text-lg font-bold text-foreground">1. Acceptance of Terms</h2>
-              <p>
-                By registering for, accessing, or using Waleado services, you agree to be bound by
-                these Terms of Service. If you do not agree with any portion of these terms, you may
-                not use our services.
-              </p>
-            </section>
-
-            <section className="space-y-2">
-              <h2 className="text-lg font-bold text-foreground">2. Acceptable Use Policy</h2>
-              <p>
-                Waleado is designed to facilitate legitimate business communication, opt-in
-                subscriber messaging, automated customer service, and transaction updates. You agree
-                not to use Waleado for:
-              </p>
-              <ul className="list-disc pl-5 space-y-1">
-                <li>
-                  Sending unsolicited messages (spam) to recipients who have not granted explicit
-                  consent.
-                </li>
-                <li>
-                  Phishing, financial scams, harassment, hate speech, or distributing malicious
-                  payloads.
-                </li>
-                <li>
-                  Violating WhatsApp terms of service or local consumer telecommunication laws.
-                </li>
-              </ul>
-            </section>
-
-            <section className="space-y-2">
-              <h2 className="text-lg font-bold text-foreground">3. Subscription & Billing</h2>
-              <p>
-                Subscription plans are billed in advance on a recurring monthly or annual basis. You
-                may upgrade, downgrade, or cancel your active subscription at any time via the
-                billing portal. Cancelled subscriptions will retain access until the end of the
-                current paid billing cycle.
-              </p>
-            </section>
-
-            <section className="space-y-2">
-              <h2 className="text-lg font-bold text-foreground">4. Limitation of Liability</h2>
-              <p>
-                Waleado is not affiliated with, endorsed by, or sponsored by WhatsApp LLC or Meta
-                Platforms, Inc. WhatsApp is a registered trademark of WhatsApp LLC. Waleado provides
-                anti-ban and automation tools as-is, and users are responsible for maintaining
-                compliance with their local messaging regulations.
-              </p>
-            </section>
-          </div>
-        </div>
-      </main>
-      <Footer />
-    </div>
+    <LegalPage
+      title="Terms of service"
+      updated="November 2026"
+      sections={[
+        {
+          heading: "1. Agreement",
+          paragraphs: [
+            "By creating an account or using Waleado you agree to these terms. If you do not agree, please do not use the service.",
+          ],
+        },
+        {
+          heading: "2. Acceptable use",
+          paragraphs: [
+            "Waleado is for legitimate business messaging with people who expect to hear from you. You agree not to use it for:",
+          ],
+          items: [
+            "Unwanted messages (spam) to people who did not agree to receive them.",
+            "Scams, phishing, harassment, hate speech or harmful files.",
+            "Anything that breaks WhatsApp's terms or the law where you or your recipients live.",
+          ],
+        },
+        {
+          heading: "3. Your WhatsApp numbers",
+          paragraphs: [
+            "You are responsible for the numbers you connect and how you use them. WhatsApp may limit or ban numbers that break its rules. Waleado provides safety settings but cannot guarantee that a number will not be restricted.",
+          ],
+        },
+        {
+          heading: "4. Plans and payments",
+          paragraphs: [
+            "Paid plans are paid in advance for the chosen period, or once for a lifetime plan. You can upgrade at any time; unused time on your current plan is credited. Moving to a smaller plan takes effect when your current period ends. If a plan is not renewed it moves to the Free plan after a short grace period.",
+          ],
+        },
+        {
+          heading: "5. Lifetime plans",
+          paragraphs: [
+            "A lifetime plan gives you its plan for as long as Waleado operates the service, with the limits of that plan. Lifetime plans are not transferable.",
+          ],
+        },
+        {
+          heading: "6. Not affiliated with WhatsApp",
+          paragraphs: [
+            "Waleado is not affiliated with, endorsed or sponsored by WhatsApp LLC or Meta Platforms, Inc. WhatsApp is a trademark of Meta Platforms, Inc.",
+          ],
+        },
+        {
+          heading: "7. Service changes and liability",
+          paragraphs: [
+            'We work to keep Waleado available and reliable, but the service is provided "as is". To the extent allowed by law we are not liable for indirect losses, such as lost sales caused by a WhatsApp restriction.',
+          ],
+        },
+        {
+          heading: "8. Contact",
+          paragraphs: [`Questions about these terms? Email us at ${SITE.email}.`],
+        },
+      ]}
+    />
   );
 }
