@@ -103,6 +103,12 @@ function PlanCard({
     note = cycle === "lifetime" ? "Not offered as a lifetime deal" : "Not available for this cycle";
   }
 
+  // While showing taka, also show the dollar equivalent for visitors outside Bangladesh.
+  const usdHint =
+    currency === "BDT" && price?.amountUsd != null
+      ? `≈ ${money(price, "USD", cycle === "yearly" ? 12 : 1)}${period ? ` ${period}` : ""}`
+      : null;
+
   const href =
     isFree || unavailable
       ? SIGNUP_URL
@@ -130,6 +136,7 @@ function PlanCard({
         <span className="font-display text-4xl font-extrabold text-foreground">{amount}</span>
         <span className="text-sm text-muted-foreground">{period}</span>
       </div>
+      <p className="-mt-3 min-h-5 text-[13px] text-muted-foreground">{usdHint}</p>
       <p className="min-h-9 text-[13px] text-muted-foreground">{note}</p>
       <a
         href={href}

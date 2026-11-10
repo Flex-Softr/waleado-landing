@@ -4,6 +4,9 @@ import type { PlanLimits, Pricing, PricingPrice } from "@/lib/pricing";
  * Default plans, used only when the pricing API cannot be reached, so the page (and search engines)
  * still see real plans. Live prices from the admin dashboard replace these within a minute.
  */
+/** USD shown next to BDT, converted at about this many taka per dollar. */
+const BDT_PER_USD = 123;
+
 const price = (
   months: number,
   amountBdt: number,
@@ -14,7 +17,7 @@ const price = (
   isLifetime: months === 0,
   amountBdt,
   compareAtBdt: null,
-  amountUsd: null,
+  amountUsd: Math.round((amountBdt / BDT_PER_USD) * 100) / 100,
   perMonthBdt: months ? Math.round(amountBdt / months) : null,
   label,
   saleCap,
@@ -106,9 +109,9 @@ export const FALLBACK_PRICING: Pricing = {
         "API access",
       ],
       prices: [
-        price(1, 990),
-        price(12, 8900, "3 months free"),
-        price(0, 19900, "Launch offer", 300),
+        price(1, 149),
+        price(12, 1190, "4 months free"),
+        price(0, 2490, "Launch offer", 300),
       ],
     },
     {
@@ -138,9 +141,9 @@ export const FALLBACK_PRICING: Pricing = {
         "Missed-call responder",
       ],
       prices: [
-        price(1, 2490),
-        price(12, 22400, "3 months free"),
-        price(0, 49900, "Launch offer", 300),
+        price(1, 249),
+        price(12, 1990, "4 months free"),
+        price(0, 3990, "Launch offer", 200),
       ],
     },
     {
@@ -169,7 +172,7 @@ export const FALLBACK_PRICING: Pricing = {
         "Everything in Pro",
         "Priority support",
       ],
-      prices: [price(1, 5990), price(12, 53900, "3 months free")],
+      prices: [price(1, 349), price(12, 2790, "4 months free"), price(0, 5500, "Launch offer", 50)],
     },
   ],
 };
